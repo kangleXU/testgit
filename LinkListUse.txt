@@ -1,0 +1,79 @@
+#include "LinkList.c"
+#include "stdio.h"
+#include "stdlib.h"
+
+void inputElem(LinkList *L)
+{	ElemType e;
+	int Succ;
+	int Total;
+	printf("请输入姓名：");
+	scanf("%s",e.name);
+	printf("请性别（1/2）：");
+	scanf("%d",&e.sex);
+	Total=ListLength(*L);
+	Succ=InsList(L,Total+1,e);
+	if(Succ=OK)
+		printf("\n插入成功！");
+	else
+		printf("\n插入失败！");
+}
+
+void outList(LinkList L)
+{	PNode P;
+	printf("(");
+	P=L.PHead->Next;
+	while(P!=NULL)
+	{	printf("(%s,%d)",P->Data.name,P->Data.sex);
+		P=P->Next;
+		if(P!=NULL)
+			printf(",");
+	}
+	printf(")");
+}
+
+void exer_9_2(LinkList *L)
+{	PNode P,P1,P2; /*P链表头指针，P1指向开始链表的首结点，P2指向P1的后继结点*/
+
+	P=L->PHead;
+	P1=P->Next;
+	P2=P1->Next;
+	while(P2!=NULL)
+	{	/*完成交换*/
+		P1->Next=P2->Next;
+		P2->Next=P->Next;
+		P->Next=P2;
+		/*找P1下一个*/
+		P2=P1->Next;
+	}
+}
+
+//主程序
+void main( )
+{	LinkList L;	
+	int SelNum;
+    IniList(&L);
+	do 
+	{//	system("cls");
+		printf("\n\n               菜  单\n");
+		printf("**********请根据功能输入菜单编号**********\n");
+		printf(" 1:输入一个数据元素\n");
+		printf(" 2:输出线性表\n");
+		printf(" 3:实现习题9（2），即以一维数组存储结构，逆置线性表\n");
+		printf(" 0:退出\n");
+		printf("\n请输入功能编号(0～2):");
+		scanf("%d",&SelNum);
+		switch (SelNum)
+		{	case 0: printf("谢谢使用！\n");
+					break;
+			case 1: inputElem(&L);
+					break;
+			case 2: outList(L);
+					break;
+			case 3: exer_9_2(&L);
+					printf("逆置完成！");
+					break;
+			default:printf("输入有错！请重新输入。\n");
+		}
+	}
+	while (0!=SelNum); 
+}
